@@ -23,22 +23,28 @@ function mfcc(s)
 	%Filterbancks energies
 
 	%Tomamos solo los primeros 17 filtebancks para ASR.
-	filteredFramesPower = zeros(1, 33);
+	filteredFramesPower = zeros(size(powerFrames)(1), 33);
 
-	for j = 1: 33
-		for i = 1: size(powerFrames)(1)
-			filteredFramesPower(1, j) += filterbanks(j, :) * powerFrames(i,:)';
+  for i = 1: size(powerFrames)(1)
+	  for j = 1: 33
+			filteredFramesPower(i, j) = filterbanks(j, :) * powerFrames(i,:)';
 		end
 	end
 
-	filterbankLogEnergies = zeros(1, 33);
-	filterbankLogEnergies = log(filteredFramesPower)
+  size(filteredFramesPower)
+  tic()
+  melCeptrums = melCeptrums(filteredFramesPower)
+  toc()
+  size(melCeptrums)
 
-	dctLogFilterbanks = zeros(1, 33);
-	dctLogFilterbanks = dct2(filterbankLogEnergies);
-	plot(dctLogFilterbanks)
+  
+	%filterbankLogEnergies = log(filteredFramesPower);
+  
+  
+  
+	%dctLogFilterbanks = dct2(filterbankLogEnergies);
 
-	%size(filterbanks)
+	%size(dctLogFilterbanks)
 	%size(fft_hframes)
 	%filteredFrames = filterbanks*fft_hframes;
 

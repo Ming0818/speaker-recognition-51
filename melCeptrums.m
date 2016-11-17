@@ -1,0 +1,1 @@
+function melCeptrums = melCeptrums(frames)    filters = size(frames)(2);  cantFrames = size(frames)(1);  melCeptrums = zeros(size(frames)(1), ceil(filters/2));      for i=1:cantFrames    for j=1:ceil(filters/2)      for k=1:filters        melCeptrums(i,j) += log(frames(i,k))*cos(j*(k-0.5)*(pi/filters));               end    end  endend
