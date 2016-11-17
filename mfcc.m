@@ -1,4 +1,5 @@
-function mfcc(s)
+function mfcc = mfcc(s)
+  
 	%pre-enfasis 
 	ps = pre_emphasis(s);
 
@@ -13,7 +14,7 @@ function mfcc(s)
 	for i = 1: size(h_frames)(1)
 		fft_hframes(i, :) = fft(h_frames(i, :));
 	end
-   
+  
 	powerFrames = zeros(size(fft_hframes));
 	powerFrames = (1/size(frames)(2))*(abs(fft_hframes).^2);
 
@@ -23,30 +24,24 @@ function mfcc(s)
 	%Filterbancks energies
 
 	%Tomamos solo los primeros 17 filtebancks para ASR.
-	filteredFramesPower = zeros(size(powerFrames)(1), 33);
-
+	filteredFramesPower = zeros(size(powerFrames)(1), 26);
+  
   for i = 1: size(powerFrames)(1)
-	  for j = 1: 33
+	  for j = 1: 26
 			filteredFramesPower(i, j) = filterbanks(j, :) * powerFrames(i,:)';
 		end
 	end
 
-  size(filteredFramesPower)
-  tic()
-  melCeptrums = melCeptrums(filteredFramesPower)
-  toc()
-  size(melCeptrums)
-
+  melCeptrums = melCeptrums(filteredFramesPower);
+  deltas = deltas(melCeptrums);
   
-	%filterbankLogEnergies = log(filteredFramesPower);
+  mfcc = zeros(size(frames)(1), 26);
+  for i=1:size(melCeptrums)(1)
+    for j=1:13
+      mfcc(i,j) = melCeptrums(i,j);
+      mfcc(i,j+13) = deltas(i,j);
+    end
+  end
   
   
-  
-	%dctLogFilterbanks = dct2(filterbankLogEnergies);
-
-	%size(dctLogFilterbanks)
-	%size(fft_hframes)
-	%filteredFrames = filterbanks*fft_hframes;
-
-
 end
