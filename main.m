@@ -1,6 +1,6 @@
 function main
 
-  subjects = ['Ale'; 'Angie' ;'Copi'; 'Dani'; 'Gabi';'Mechi'; 'Fran'; 'Meli'];
+  subjects = ['Ale'; 'Angie' ;'Copi'; 'Dani'; 'Gabi';'Mechi'; 'Fran'; 'Meli';'Fede'; 'Agus'];
   subjectsVqs = zeros(26, 16, size(subjects)(2));
   subjectsSize = size(subjects)(1);
 
@@ -68,6 +68,6 @@ function main
   end
 
   printf('Se testearon %d muestras y se reconocieron correctamente %d\n', testSize, correctSize);
-  printf('Efectividad del algoritmo del %d porciento\n', (correctSize / testSize) * 100);
+  printf('Efectividad del algoritmo del %f por ciento\n', (correctSize / testSize) * 100);
   fflush(stdout);
 end
