@@ -3,8 +3,8 @@ function filterbank = filterbanks(frames)
 	low_freq = mel(300);
 	high_freq = mel(4000);
 
-	step = (high_freq - low_freq)/27;
-	freqs = low_freq:step:high_freq;
+	step = (high_freq - low_freq) / 27;
+	freqs = low_freq : step : high_freq;
 
 	nfft = 160;
 
@@ -29,13 +29,13 @@ function filterbank = filterbanks(frames)
 				filterbank(j, h) = (roundedFreqs(1, j+2) -h)/(roundedFreqs(1, j+2) - roundedFreqs(1, j+1));
 			end
 		end
-    end
+  end
 end
 
 function f = mel(f)
-	f = 1127*log(1 + f/700);
+	f = 1127 * log(1 + f/700);
 end
 
 function h = imel(m) 
-	h = 700*(e^(m/1125) -1);
+	h = 700 * (e^(m / 1125) -1);
 end
